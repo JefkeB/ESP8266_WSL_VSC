@@ -21,9 +21,16 @@ Start with the default Ubuntu distribution.
 TODO: how, name, default etc
 Start WSL by entering bash in a command prompt.  
 In WSL edit /root/.profile and append following lines to it
-  ```
+  ```batch
   cd /mnt/c/ESP8266_Dev/WSL
   source env_init
+  ```
+  Add a file named *env_init* to *c:\ESP8266_Dev\WSL* with the following content
+  ```bash
+  #!/bin/bash
+  export PATH=$PWD/xtensa-lx106-elf/bin:$PWD:$PATH
+  export IDF_PATH=$PWD/ESP8266_RTOS_SDK
+  export IDF_WINDOWS_TOOLS_PATH=$PWD/../Tools
   ```
   This will setup the Linux environment.
 * **batch file to start environment**
