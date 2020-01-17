@@ -1,0 +1,4 @@
+#!/bin/bash
+export PATH=$PWD/xtensa-lx106-elf/bin:$PWD:$PATH
+export IDF_PATH=$PWD/ESP8266_RTOS_SDK
+export IDF_WINDOWS_TOOLS_PATH=$PWD/../Tools
