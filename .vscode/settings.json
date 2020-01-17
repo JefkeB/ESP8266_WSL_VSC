@@ -1,0 +1,17 @@
+{
+    "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
+    "terminal.integrated.shellArgs.windows": [
+        "/K",
+        "c:\\wsl\\LxRunOffline\\lxrunoffline run -n WSL_ESP32 -w"
+    ],
+    "files.associations": {
+        "ota.h": "c",
+        "*.def": "c",
+        "esp_event_loop.h": "c",
+        "esp_log.h": "c",
+        "event_groups.h": "c",
+        "esp_wifi.h": "c",
+        "webserver.h": "c",
+        "freertos.h": "c"
+    }
+}

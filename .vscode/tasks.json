@@ -1,0 +1,155 @@
+{   
+    "version": "2.0.0",    
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-l",           // login
+                "-c",           // execute a command
+                "\"clear;cd ${env:wsl_project_folder_root}/${workspaceFolderBasename};make -j8;\""                  
+            ],
+            "problemMatcher": {
+                "fileLocation": ["relative", "d://"],
+                "owner": "cpp",
+                "pattern": {
+                  "regexp": "^\/mnt/d\/(\\S+):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                  "file": 1,
+                  "line": 2,
+                  "column": 3,
+                  "severity": 4,
+                  "message": 5
+                } 
+            },
+            "options": {
+                "tasksHere": {
+                  "display" : true,
+                  "color": "#91ff00",
+                  "name": "$(refresh)Build"
+                }
+            },
+        },
+
+        {
+            "label": "Flash",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-l",           // login
+                "-c",           // execute a command
+                "\"cd ${env:wsl_project_folder_root}/${workspaceFolderBasename};clear;make -j8 flash ESPPORT=/dev/ttyS7 ESPBAUD=921600;\""                
+            ],
+            "options": {
+                "tasksHere": {
+                  "display" : true,
+                  "color": "#91ff00",
+                  "name": "$(play)Flash"                
+                }
+            },
+        },
+
+        {
+            "label": "Flash (OTA)",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-l",           // login
+                "-c",           // execute a command
+                "\"cd ${env:wsl_project_folder_root}/${workspaceFolderBasename};clear;echo 'uploading data ...';curl -# -F 'data=@${env:wsl_project_folder_root}/${workspaceFolderBasename}/build/${workspaceFolderBasename}.bin' http://192.168.2.27/update;\""                  
+            ],
+            "options": {
+                "tasksHere": {
+                  "display" : true,
+                  "name": "$(broadcast)Flash(OTA)",
+                  "color": "#00d9ff"
+                }
+            },
+        },
+       
+        {
+            "label": "Clean",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-l",           // login
+                "-c",           // execute a command
+                "\"clear;cd ${env:wsl_project_folder_root}/${workspaceFolderBasename};make -j8 clean\"" 
+            ],
+            "options": {
+                "tasksHere": {
+                  "display" : true,
+                  "color": "#91ff00",
+                  "name": "$(clear-all)Clean",                  
+                }
+            },
+        },
+       
+        {
+            "label": "Config",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-l",           // login
+                "-c",           // execute a command
+                "\"clear;cd ${env:wsl_project_folder_root}/${workspaceFolderBasename};make -j8 menuconfig\"" 
+            ],
+            "options": {
+                "tasksHere": {
+                  "display" : true,
+                  "color": "#91ff00",
+                  "name": "$(edit)Config",                     
+                }
+            },
+        },
+       
+        {
+            "label": "TEST",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-l",           // login
+                "-c",           // execute a command
+                "\"cd ${env:wsl_project_folder_root}/${workspaceFolderBasename};ls /mnt/d\""    
+            ],
+            "options": {
+                "tasksHere": {
+                  "display" : true,
+                  "color": "#ff0000"               
+                }
+            },
+        },
+       
+        {
+            "label": "Info",
+            "type": "shell",
+            "command": "echo",
+            "args": [
+                "${env:wsl_project_folder_root}/${workspaceFolderBasename}"
+            ],
+            "options": {
+                "tasksHere": {
+                  "display" : true,
+                  "color": "#ff0000"               
+                }
+            },
+        },
+       
+        {
+            "label": "WSL shell",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-l"
+            ],
+            "options": {
+                "tasksHere": {
+                  "display" : true,
+                  "color": "#ff0000"               
+                }
+            },
+        }
+
+
+    ]
+}
