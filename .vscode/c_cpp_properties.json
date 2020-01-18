@@ -1,14 +1,14 @@
-{     
+{
     "configurations": [
         {
             "name": "esp8266",
             "includePath": [
                 "${workspaceFolder}/**",
-                "c:/ESP8266_Projects/WSL/xtensa-lx106-elf/**",
-                "c:/ESP8266_Projects/WSL/ESP8266_RTOS_SDK/components/**"
+                "c:/ESP8266_Dev/WSL/xtensa-lx106-elf/**",
+                "c:/ESP8266_Dev/WSL/ESP8266_RTOS_SDK/components/**"
             ],
             "defines": [],
-            "compilerPath": "c:/ESP8266_Projects/WSL/xtensa-lx106-elf/bin/xtensa-lx106-elf-gcc",
+            "compilerPath": "c:/ESP8266_Dev/WSL/xtensa-lx106-elf/bin/xtensa-lx106-elf-gcc",
             "cStandard": "c11",
             "cppStandard": "c++17",
             "intelliSenseMode": "gcc-x64"
