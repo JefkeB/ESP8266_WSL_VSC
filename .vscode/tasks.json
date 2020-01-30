@@ -1,5 +1,10 @@
 {   
-    "version": "2.0.0",    
+    "version": "2.0.0", 
+        "options": {
+            "env": {
+                "wsl_espport":"/dev/ttyS7"
+            }
+    },
     "tasks": [
         {
             "label": "Build",
@@ -38,7 +43,7 @@
             "args": [
                 "-l",           // login
                 "-c",           // execute a command
-                "\"cd ${env:wsl_project_folder_root}/${workspaceFolderBasename};clear;make -j8 flash ESPPORT=/dev/ttyS7 ESPBAUD=921600;\""                
+                "\"cd ${env:wsl_project_folder_root}/${workspaceFolderBasename};clear;make -j8 flash ESPPORT=${env:wsl_espport} ESPBAUD=921600;\""                
             ],
             "options": {
                 "tasksHere": {
@@ -56,12 +61,48 @@
             "args": [
                 "-l",           // login
                 "-c",           // execute a command
-                "\"cd ${env:wsl_project_folder_root}/${workspaceFolderBasename};clear;echo 'uploading data ...';curl -# -F 'data=@${env:wsl_project_folder_root}/${workspaceFolderBasename}/build/${workspaceFolderBasename}.bin' http://192.168.2.27/update;\""                  
+                "\"cd ${env:wsl_project_folder_root}/${workspaceFolderBasename};clear;echo 'uploading data ...';curl -# -F 'data=@${env:wsl_project_folder_root}/${workspaceFolderBasename}/build/${workspaceFolderBasename}.bin' http://${env:wsl_remoteupdate_ip}/update;\""                  
             ],
             "options": {
                 "tasksHere": {
                   "display" : true,
                   "name": "$(broadcast)Flash(OTA)",
+                  "color": "#00d9ff"
+                }
+            },
+        },
+
+        {
+            "label": "HTML",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-l",           // login
+                "-c",           // execute a command
+                "\"cd ${env:wsl_project_folder_root}/${workspaceFolderBasename};clear;make -j8 html ESPPORT=${env:wsl_espport} ESPBAUD=921600;\""                
+            ],
+            "options": {
+                "tasksHere": {
+                  "display" : true,
+                  "color": "#91ff00",
+                  "name": "$(play)HTML"                
+                }
+            },
+        },
+
+        {
+            "label": "HTML (OTA)",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-l",           // login
+                "-c",           // execute a command                
+                "\"cd ${env:wsl_project_folder_root}/${workspaceFolderBasename};clear;echo 'uploading data ...';curl -# -F 'data=@${env:wsl_project_folder_root}/${workspaceFolderBasename}/spiffs/html.spiffs.bin' http://${env:wsl_remoteupdate_ip}/update;\""                                      
+            ],
+            "options": {
+                "tasksHere": {
+                  "display" : true,
+                  "name": "$(broadcast)HTML(OTA)",
                   "color": "#00d9ff"
                 }
             },
@@ -125,7 +166,7 @@
             "type": "shell",
             "command": "echo",
             "args": [
-                "${env:wsl_project_folder_root}/${workspaceFolderBasename}"
+                "${workspaceFolder}/%wsl_espport%"
             ],
             "options": {
                 "tasksHere": {
@@ -148,7 +189,42 @@
                   "color": "#ff0000"               
                 }
             },
-        }
+        },
+       
+        {
+            "label": "WSL info",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-l",
+                "-c",
+                "printenv"
+            ],
+            "options": {
+                "tasksHere": {
+                  "display" : true,
+                  "color": "#ff0000"               
+                }
+            },
+        },
+        
+
+        {
+            "label": "Erase flash",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-l",           // login
+                "-c",           // execute a command
+                "\"cd ${env:wsl_project_folder_root}/${workspaceFolderBasename};clear;make -j8 erase_flash ESPPORT=${env:wsl_espport} ESPBAUD=921600;\""                
+            ],
+            "options": {
+                "tasksHere": {
+                  "display" : true,
+                  "color": "#ff0000"               
+                }
+            },
+        },
 
 
     ]
